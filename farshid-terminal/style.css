@@ -1,0 +1,10 @@
+/*
+Theme Name: Farshid Terminal
+Theme URI: https://example.com/farshid-terminal
+Author: Farshid
+Description: Terminal style WordPress theme with Full Site Editing support.
+Version: 1.0
+Requires at least: 6.4
+*/
+
+@import url('assets/css/terminal.css');

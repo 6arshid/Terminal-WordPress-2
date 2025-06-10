@@ -1,0 +1,127 @@
+html, body {
+    height: 100%;
+    margin: 0;
+}
+
+body {
+    background-color: #000;
+    color: #0f0;
+    font-family: monospace;
+}
+
+.farshid_terminal_header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.5rem 1rem;
+    background-color: #111;
+    color: #0f0;
+}
+
+.farshid_logo {
+    font-weight: bold;
+    font-size: 1.2rem;
+}
+
+.farshid_header_controls {
+    display: flex;
+    align-items: center;
+    gap: 0.2rem;
+}
+
+.farshid_search {
+    border: 1px solid #0f0;
+    background: transparent;
+    color: #0f0;
+    padding: 0.3rem 0.6rem;
+    border-radius: 0.25rem;
+}
+
+.farshid_daynight_btn {
+    cursor: pointer;
+    background: none;
+    border: none;
+    color: #0f0;
+    font-size: 1.2rem;
+}
+
+.farshid_terminal_output {
+    flex: 1;
+    overflow-y: auto;
+    white-space: pre-wrap;
+    display: flex;
+    flex-direction: column;
+    padding: 1rem;
+}
+
+.farshid_terminal_block {
+    margin-bottom: 0.3rem;
+}
+
+.farshid_terminal_command {
+    color: cyan;
+}
+
+.farshid_terminal_result {
+    color: #0f0;
+}
+
+.farshid_terminal_input_row {
+    display: flex;
+    align-items: center;
+    padding: 0 1rem 1rem;
+}
+
+.farshid_terminal_prompt {
+    margin-right: 0.5rem;
+}
+
+.farshid_terminal_input {
+    border: none;
+    outline: none;
+    background: transparent;
+    color: #0f0;
+    flex: 1;
+    font-family: monospace;
+}
+
+.farshid_terminal_help {
+    padding: 0 1rem;
+    color: #0f0;
+    margin-top: 0.5rem;
+    font-size: 0.9rem;
+}
+
+footer {
+    background: #111;
+    color: #0f0;
+    text-align: center;
+    padding: 0.5rem;
+    font-size: 0.85rem;
+}
+
+.dark-mode {
+    background-color: #000 !important;
+    color: #0f0 !important;
+}
+
+.light-mode {
+    background-color: #f0f0f0 !important;
+    color: #000 !important;
+}
+
+.light-mode input.farshid_search,
+.light-mode .farshid_terminal_input {
+    color: #000 !important;
+    border-color: #000 !important;
+}
+
+.light-mode footer {
+    background: #ccc !important;
+    color: #000 !important;
+}
+
+.light-mode .farshid_terminal_header {
+    background-color: #ddd !important;
+    color: #000 !important;
+}
