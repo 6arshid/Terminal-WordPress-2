@@ -11,5 +11,9 @@
         <?php wp_list_comments(); ?>
     </ol>
 <?php endif; ?>
-<?php comment_form(); ?>
+<?php
+comment_form( [
+    'class_form' => 'comment-form farshid_comment_form',
+] );
+?>
 </div>

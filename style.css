@@ -151,3 +151,33 @@ Version: 1.0
         text-decoration: underline;
         cursor: pointer;
     }
+
+    /* Comment form styled like terminal search box */
+    .farshid_comment_form input[type="text"],
+    .farshid_comment_form input[type="email"],
+    .farshid_comment_form input[type="url"],
+    .farshid_comment_form textarea {
+        border: 1px solid #0f0;
+        background: transparent;
+        color: #0f0;
+        padding: 0.3rem 0.6rem;
+        border-radius: 0.25rem;
+    }
+
+    .farshid_comment_form input[type="submit"] {
+        border: 1px solid #0f0;
+        background: transparent;
+        color: #0f0;
+        padding: 0.3rem 0.6rem;
+        border-radius: 0.25rem;
+        cursor: pointer;
+    }
+
+    .light-mode .farshid_comment_form input[type="text"],
+    .light-mode .farshid_comment_form input[type="email"],
+    .light-mode .farshid_comment_form input[type="url"],
+    .light-mode .farshid_comment_form textarea,
+    .light-mode .farshid_comment_form input[type="submit"] {
+        color: #000 !important;
+        border-color: #000 !important;
+    }
