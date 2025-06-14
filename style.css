@@ -3,6 +3,8 @@ Theme Name: Terminal WordPress
 Author: Farshid
 Description: Terminal-style interface theme with pagination commands.
 Version: 1.0
+Text Domain: terminal
+Domain Path: /languages
 */
 
     html, body {

@@ -13,7 +13,7 @@
     <div class="farshid_logo"><?php bloginfo('name'); ?></div>
     <div class="farshid_header_controls">
         <form role="search" method="get" class="searchform" action="<?php echo esc_url( home_url( '/' ) ); ?>">
-            <input class="farshid_search" type="text" name="s" placeholder="Search..." value="<?php echo get_search_query(); ?>" />
+            <input class="farshid_search" type="text" name="s" placeholder="<?php esc_attr_e('Search...', 'terminal'); ?>" value="<?php echo get_search_query(); ?>" />
         </form>
         <button id="farshid_daynight_btn" class="farshid_daynight_btn">&#9790;</button>
     </div>
