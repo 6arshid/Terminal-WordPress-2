@@ -147,6 +147,22 @@
         }
     });
 
+    // Open post links inside the terminal
+    farshid_output.addEventListener('click', function (e) {
+        if (e.target.classList.contains('farshid_post_link')) {
+            e.preventDefault();
+            const url = e.target.getAttribute('href');
+            const title = e.target.textContent;
+            fetch(url)
+                .then(r => r.text())
+                .then(html => {
+                    const doc = new DOMParser().parseFromString(html, 'text/html');
+                    const content = doc.querySelector('.farshid_terminal_output');
+                    farshid_addBlock(title, content ? content.textContent.trim() : 'No content');
+                });
+        }
+    });
+
     // Day/Night mode toggle
     farshid_daynight_btn.addEventListener('click', function () {
         document.body.classList.toggle('light-mode');
