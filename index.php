@@ -74,7 +74,7 @@
             return 'No posts';
         }
         let output = postsSlice
-            .map(p => `- <a href="${p.link}" class="farshid_post_link">${p.title}</a>`)
+            .map(p => `- <a href="${p.link}" class='farshid_post_link' target='_blank'>${p.title}</a>`)
             .join('<br>');
         output += '<br>Categories: ' + farshid_categories.map(c => c.name).join(', ');
         if (farshid_posts.length > farshid_posts_per_page) {
@@ -144,22 +144,6 @@
                 }
                 farshid_input.value = '';
             }
-        }
-    });
-
-    // Open post links inside the terminal
-    farshid_output.addEventListener('click', function (e) {
-        if (e.target.classList.contains('farshid_post_link')) {
-            e.preventDefault();
-            const url = e.target.getAttribute('href');
-            const title = e.target.textContent;
-            fetch(url)
-                .then(r => r.text())
-                .then(html => {
-                    const doc = new DOMParser().parseFromString(html, 'text/html');
-                    const content = doc.querySelector('.farshid_terminal_output');
-                    farshid_addBlock(title, content ? content.textContent.trim() : 'No content');
-                });
         }
     });
 
