@@ -7,9 +7,7 @@
     <input id="farshid_terminal_input" class="farshid_terminal_input" type="text" placeholder="<?php esc_attr_e('Type your command...', 'terminal'); ?>">
 </div>
 
-<footer>
-    <?php printf( esc_html__('© %1$s %2$s. All rights reserved.', 'terminal'), date('Y'), get_bloginfo('name') ); ?>
-</footer>
+
 
 <script>
     const farshid_output = document.getElementById('farshid_terminal_output');
