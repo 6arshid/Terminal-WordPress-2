@@ -1,26 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-<meta charset="UTF-8">
-<title><?php bloginfo('name'); ?></title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-<link rel='stylesheet' href='<?php echo esc_url( get_stylesheet_uri() ); ?>'>
-</head>
-
-<body>
-<header class="farshid_terminal_header">
-    <div class="farshid_logo"><?php bloginfo('name'); ?></div>
-    <div class="farshid_header_controls">
-        <form role="search" method="get" class="searchform" action="<?php echo esc_url( home_url( '/' ) ); ?>">
-            <input class="farshid_search" type="text" name="s" placeholder="Search..." value="<?php echo get_search_query(); ?>" />
-        </form>
-        <button id="farshid_daynight_btn" class="farshid_daynight_btn">&#9790;</button>
-    </div>
-</header>
-
-<div class="farshid_terminal_help">Type 'help' for pages or 'posts' to view posts</div>
+<?php get_header(); ?>
 
 <div id="farshid_terminal_output" class="farshid_terminal_output"></div>
 
@@ -40,8 +18,8 @@
 
     const farshid_pages = <?php
         $pages = get_pages();
-        $page_titles = array_map(function($p){ return $p->post_title; }, $pages);
-        echo json_encode($page_titles);
+        $page_data = array_map(function($p){ return ['title' => $p->post_title, 'link' => get_page_link($p->ID)]; }, $pages);
+        echo json_encode($page_data);
     ?>;
     const farshid_posts = <?php
         $posts_query = new WP_Query(['posts_per_page' => 100]);
@@ -60,13 +38,13 @@
     ?>;
     const farshid_categories = <?php
         $categories = get_categories(['hide_empty' => 0]);
-        $cat_names = array_map(function($c){ return $c->name; }, $categories);
-        echo json_encode($cat_names);
+        $cat_data = array_map(function($c){ return ['name' => $c->name, 'link' => get_category_link($c->term_id)]; }, $categories);
+        echo json_encode($cat_data);
     ?>;
     let farshid_current_page = 0;
     const farshid_posts_per_page = 10;
 
-    function farshid_addBlock(command, output, isWarning = false) {
+    function farshid_addBlock(command, output, isWarning = false, allowHTML = false) {
         const block = document.createElement('div');
         block.className = 'farshid_terminal_block';
 
@@ -76,7 +54,11 @@
 
         const resultLine = document.createElement('div');
         resultLine.className = 'farshid_terminal_result';
-        resultLine.textContent = output;
+        if (allowHTML) {
+            resultLine.innerHTML = output;
+        } else {
+            resultLine.textContent = output;
+        }
         if (isWarning) {
             resultLine.style.color = 'yellow';
         }
@@ -95,8 +77,8 @@
         if (postsSlice.length === 0) {
             return 'No posts';
         }
-        let output = postsSlice.map(p => `- ${p.title} (${p.link})`).join('\n');
-        output += '\nCategories: ' + farshid_categories.join(', ');
+        let output = postsSlice.map(p => `- <a href="${p.link}" class="farshid_post_link">${p.title}</a>`).join('\n');
+        output += '\nCategories: ' + farshid_categories.map(c => c.name).join(', ');
         if (farshid_posts.length > farshid_posts_per_page) {
             output += '\nType "next" or "prev" to navigate.';
         }
@@ -104,26 +86,52 @@
     }
 
     function farshid_handleCommand(cmd) {
+        const lowerCmd = cmd.toLowerCase();
         if (cmd === 'help') {
-            const pages = farshid_pages.join('\n');
-            return 'Pages:\n' + pages + '\nCommands:\nhelp - list pages\nposts - show recent posts';
+            const pages = farshid_pages.map(p => p.title).join('\n');
+            const cats = farshid_categories.map(c => c.name).join('\n');
+            return { text: 'Pages:\n' + pages + '\nCategories:\n' + cats + '\nCommands:\nhelp - list pages\nposts - show recent posts', html: false };
         } else if (cmd === 'posts') {
             farshid_current_page = 0;
-            return farshid_renderPosts();
+            return { text: farshid_renderPosts(), html: true };
         } else if (cmd === 'next') {
             if ((farshid_current_page + 1) * farshid_posts_per_page < farshid_posts.length) {
                 farshid_current_page++;
-                return farshid_renderPosts();
+                return { text: farshid_renderPosts(), html: true };
             }
-            return 'No more posts';
+            return { text: 'No more posts', html: false };
         } else if (cmd === 'prev') {
             if (farshid_current_page > 0) {
                 farshid_current_page--;
-                return farshid_renderPosts();
+                return { text: farshid_renderPosts(), html: true };
             }
-            return 'No previous posts';
+            return { text: 'No previous posts', html: false };
+        } else if (farshid_posts.find(p => p.title.toLowerCase() === lowerCmd)) {
+            const post = farshid_posts.find(p => p.title.toLowerCase() === lowerCmd);
+            window.location = post.link;
+            return { text: '', html: false };
+        } else if (farshid_pages.find(p => p.title.toLowerCase() === lowerCmd)) {
+            const page = farshid_pages.find(p => p.title.toLowerCase() === lowerCmd);
+            fetch(page.link)
+                .then(r => r.text())
+                .then(html => {
+                    const doc = new DOMParser().parseFromString(html, 'text/html');
+                    const content = doc.querySelector('.farshid_terminal_output');
+                    farshid_addBlock(cmd, content ? content.textContent.trim() : 'No content');
+                });
+            return { text: '', html: false };
+        } else if (farshid_categories.find(c => c.name.toLowerCase() === lowerCmd)) {
+            const cat = farshid_categories.find(c => c.name.toLowerCase() === lowerCmd);
+            fetch(cat.link)
+                .then(r => r.text())
+                .then(html => {
+                    const doc = new DOMParser().parseFromString(html, 'text/html');
+                    const content = doc.querySelector('.farshid_terminal_output');
+                    farshid_addBlock(cmd, content ? content.textContent.trim() : 'No content');
+                });
+            return { text: '', html: false };
         } else {
-            return `Command not found: ${cmd}`;
+            return { text: `Command not found: ${cmd}`, html: false };
         }
     }
 
@@ -131,10 +139,10 @@
         if (e.key === 'Enter') {
             const cmd = farshid_input.value.trim();
             if (cmd) {
-                const output = farshid_handleCommand(cmd);
-                const isWarning = output.startsWith('Command not found');
-                if (output) {
-                    farshid_addBlock(cmd, output, isWarning);
+                const result = farshid_handleCommand(cmd);
+                const isWarning = result.text.startsWith('Command not found');
+                if (result.text) {
+                    farshid_addBlock(cmd, result.text, isWarning, result.html);
                 }
                 farshid_input.value = '';
             }
@@ -151,5 +159,4 @@
         }
     });
 </script>
-</body>
-</html>
+<?php get_footer(); ?>
