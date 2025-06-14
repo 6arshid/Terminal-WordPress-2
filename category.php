@@ -7,6 +7,7 @@
         <li><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></li>
     <?php endwhile; ?>
     </ul>
+    <?php the_posts_pagination(); ?>
 <?php else : ?>
     <p><?php _e('No posts found'); ?></p>
 <?php endif; ?>
