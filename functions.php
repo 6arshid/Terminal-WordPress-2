@@ -29,15 +29,9 @@ function terminal_customize_register($wp_customize) {
 }
 add_action('customize_register', 'terminal_customize_register');
 
-function terminal_customizer_css() {
-    $bg = get_theme_mod('terminal_bg_color', '#000000');
-    $text = get_theme_mod('terminal_text_color', '#00ff00');
-    echo '<style>body{--terminal-bg-color:' . esc_attr($bg) . ';--terminal-text-color:' . esc_attr($text) . ';}</style>';
-}
-add_action('wp_head', 'terminal_customizer_css');
-
 function terminal_enqueue_assets() {
     wp_enqueue_style('terminal-style', get_stylesheet_uri());
+    wp_enqueue_style('terminal-custom-style', get_template_directory_uri() . '/custom-style.php');
     wp_enqueue_script('terminal-script', get_template_directory_uri() . '/assets/main.js', array(), null, true);
 
     $pages = get_pages();
