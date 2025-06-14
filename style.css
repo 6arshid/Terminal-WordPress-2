@@ -152,6 +152,11 @@ Version: 1.0
         cursor: pointer;
     }
 
+    .farshid_search_excerpt {
+        margin-left: 1rem;
+        font-size: 0.9rem;
+    }
+
     /* Comment form styled like terminal search box */
     .farshid_comment_form input[type="text"],
     .farshid_comment_form input[type="email"],
