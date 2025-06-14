@@ -18,4 +18,3 @@
         <button id="farshid_daynight_btn" class="farshid_daynight_btn">&#9790;</button>
     </div>
 </header>
-<div class="farshid_terminal_help">Type 'help' for pages or 'posts' to view posts</div>
