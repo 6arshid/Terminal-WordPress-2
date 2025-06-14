@@ -3,7 +3,7 @@
 
 <head>
 <meta charset="UTF-8">
-<title>Farshid Terminal</title>
+<title><?php bloginfo('name'); ?></title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 <style>
@@ -139,14 +139,16 @@
 
 <body>
 <header class="farshid_terminal_header">
-    <div class="farshid_logo">Farshid Terminal</div>
+    <div class="farshid_logo"><?php bloginfo('name'); ?></div>
     <div class="farshid_header_controls">
-        <input type="text" class="farshid_search" placeholder="Search...">
+        <form role="search" method="get" class="searchform" action="<?php echo esc_url( home_url( '/' ) ); ?>">
+            <input class="farshid_search" type="text" name="s" placeholder="Search..." value="<?php echo get_search_query(); ?>" />
+        </form>
         <button id="farshid_daynight_btn" class="farshid_daynight_btn">&#9790;</button>
     </div>
 </header>
 
-<div class="farshid_terminal_help">Type 'help' to see available commands</div>
+<div class="farshid_terminal_help">Type 'help' for pages or 'posts' to view posts</div>
 
 <div id="farshid_terminal_output" class="farshid_terminal_output"></div>
 
@@ -156,13 +158,41 @@
 </div>
 
 <footer>
-    © 2025 Farshid Terminal. All rights reserved.
+    © <?php echo date('Y'); ?> <?php bloginfo('name'); ?>. All rights reserved.
 </footer>
 
 <script>
     const farshid_output = document.getElementById('farshid_terminal_output');
     const farshid_input = document.getElementById('farshid_terminal_input');
     const farshid_daynight_btn = document.getElementById('farshid_daynight_btn');
+
+    const farshid_pages = <?php
+        $pages = get_pages();
+        $page_titles = array_map(function($p){ return $p->post_title; }, $pages);
+        echo json_encode($page_titles);
+    ?>;
+    const farshid_posts = <?php
+        $posts_query = new WP_Query(['posts_per_page' => 100]);
+        $posts_data = [];
+        if ($posts_query->have_posts()):
+            while ($posts_query->have_posts()): $posts_query->the_post();
+                $posts_data[] = [
+                    'title' => get_the_title(),
+                    'link' => get_permalink(),
+                    'categories' => wp_get_post_categories(get_the_ID(), ['fields' => 'names'])
+                ];
+            endwhile;
+            wp_reset_postdata();
+        endif;
+        echo json_encode($posts_data);
+    ?>;
+    const farshid_categories = <?php
+        $categories = get_categories(['hide_empty' => 0]);
+        $cat_names = array_map(function($c){ return $c->name; }, $categories);
+        echo json_encode($cat_names);
+    ?>;
+    let farshid_current_page = 0;
+    const farshid_posts_per_page = 10;
 
     function farshid_addBlock(command, output, isWarning = false) {
         const block = document.createElement('div');
@@ -186,12 +216,40 @@
         farshid_output.scrollTop = farshid_output.scrollHeight;
     }
 
+    function farshid_renderPosts() {
+        const start = farshid_current_page * farshid_posts_per_page;
+        const end = start + farshid_posts_per_page;
+        const postsSlice = farshid_posts.slice(start, end);
+        if (postsSlice.length === 0) {
+            return 'No posts';
+        }
+        let output = postsSlice.map(p => `- ${p.title} (${p.link})`).join('\n');
+        output += '\nCategories: ' + farshid_categories.join(', ');
+        if (farshid_posts.length > farshid_posts_per_page) {
+            output += '\nType "next" or "prev" to navigate.';
+        }
+        return output;
+    }
+
     function farshid_handleCommand(cmd) {
         if (cmd === 'help') {
-            return 'Available commands:\nhelp - show this message\nclear - clear the terminal';
-        } else if (cmd === 'clear') {
-            farshid_output.innerHTML = '';
-            return '';
+            const pages = farshid_pages.join('\n');
+            return 'Pages:\n' + pages + '\nCommands:\nhelp - list pages\nposts - show recent posts';
+        } else if (cmd === 'posts') {
+            farshid_current_page = 0;
+            return farshid_renderPosts();
+        } else if (cmd === 'next') {
+            if ((farshid_current_page + 1) * farshid_posts_per_page < farshid_posts.length) {
+                farshid_current_page++;
+                return farshid_renderPosts();
+            }
+            return 'No more posts';
+        } else if (cmd === 'prev') {
+            if (farshid_current_page > 0) {
+                farshid_current_page--;
+                return farshid_renderPosts();
+            }
+            return 'No previous posts';
         } else {
             return `Command not found: ${cmd}`;
         }
@@ -202,8 +260,8 @@
             const cmd = farshid_input.value.trim();
             if (cmd) {
                 const output = farshid_handleCommand(cmd);
-                if (cmd !== 'clear') {
-                    const isWarning = output.startsWith('Command not found');
+                const isWarning = output.startsWith('Command not found');
+                if (output) {
                     farshid_addBlock(cmd, output, isWarning);
                 }
                 farshid_input.value = '';
