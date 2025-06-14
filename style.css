@@ -132,3 +132,16 @@ Version: 1.0
         background-color: #ddd !important;
         color: #000 !important;
     }
+
+    .farshid_comments {
+        padding: 1rem;
+    }
+
+    .farshid_comments ol {
+        list-style: none;
+        padding-left: 0;
+    }
+
+    .farshid_comments li {
+        margin-bottom: 0.5rem;
+    }
