@@ -1,5 +1,5 @@
 <?php get_header(); ?>
-
+<div class="farshid_terminal_help">Type 'help' for pages or 'posts' to view posts</div>
 <div id="farshid_terminal_output" class="farshid_terminal_output"></div>
 
 <div class="farshid_terminal_input_row">
