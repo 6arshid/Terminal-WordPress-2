@@ -69,8 +69,17 @@ Version: 1.0
         color: cyan;
     }
 
-    .farshid_terminal_result {
+.farshid_terminal_result {
         color: #0f0;
+    }
+
+    .farshid_terminal_list {
+        list-style: none;
+        padding-left: 0;
+    }
+
+    .farshid_terminal_list li {
+        margin-bottom: 0.3rem;
     }
 
     .farshid_terminal_input_row {
@@ -150,6 +159,16 @@ Version: 1.0
         color: cyan;
         text-decoration: underline;
         cursor: pointer;
+    }
+
+    .farshid_search_excerpt {
+        margin-left: 0.5rem;
+        font-size: 0.9rem;
+    }
+
+    .farshid_search_excerpt p {
+        margin: 0;
+        display: inline;
     }
 
     /* Comment form styled like terminal search box */
