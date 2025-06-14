@@ -145,3 +145,22 @@ Version: 1.0
     .farshid_comments li {
         margin-bottom: 0.5rem;
     }
+
+    .farshid_post_list {
+        list-style: none;
+        padding-left: 0;
+        margin: 0;
+    }
+
+    .farshid_post_list li {
+        margin-bottom: 0.25rem;
+    }
+
+    .farshid_post_link {
+        color: #0f0;
+        text-decoration: underline;
+    }
+
+    .light-mode .farshid_post_link {
+        color: #000;
+    }

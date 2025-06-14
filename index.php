@@ -73,10 +73,14 @@
         if (postsSlice.length === 0) {
             return 'No posts';
         }
-        let output = postsSlice.map(p => `- <a href="${p.link}" class="farshid_post_link">${p.title}</a>`).join('\n');
-        output += '\nCategories: ' + farshid_categories.map(c => c.name).join(', ');
+        let output = '<ul class="farshid_post_list">';
+        output += postsSlice
+            .map(p => `<li><a href="${p.link}" class="farshid_post_link">${p.title}</a></li>`)
+            .join('');
+        output += '</ul>';
+        output += '<div>Categories: ' + farshid_categories.map(c => c.name).join(', ') + '</div>';
         if (farshid_posts.length > farshid_posts_per_page) {
-            output += '\nType "next" or "prev" to navigate.';
+            output += '<div>Type "next" or "prev" to navigate.</div>';
         }
         return output;
     }
