@@ -54,7 +54,7 @@
 
         const resultLine = document.createElement('div');
         resultLine.className = 'farshid_terminal_result';
-        resultLine.textContent = output;
+        resultLine.innerHTML = output;
         if (isWarning) {
             resultLine.style.color = 'yellow';
         }
