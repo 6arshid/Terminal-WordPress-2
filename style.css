@@ -61,6 +61,11 @@ Version: 1.0
         padding: 1rem;
     }
 
+    /* Search results should not preserve extra whitespace */
+    .farshid_search_results {
+        white-space: normal;
+    }
+
     .farshid_terminal_block {
         margin-bottom: 0.3rem;
     }
