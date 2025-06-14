@@ -12,6 +12,7 @@
                 </div>
             </div>
         <?php endwhile; ?>
+        <?php the_posts_pagination(); ?>
     <?php else : ?>
         <div class="farshid_terminal_block">
             <div class="farshid_terminal_result"><?php _e('No posts found'); ?></div>
