@@ -1,0 +1,46 @@
+msgid ""
+msgstr ""
+"Language: fa_IR\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+
+msgid "Search Results for: %s"
+msgstr "نتایج جستجو برای: %s"
+
+msgid "No posts found"
+msgstr "هیچ نوشته‌ای یافت نشد"
+
+msgid "Type 'help' for pages or 'posts' to view posts"
+msgstr "عبارت 'help' را برای فهرست صفحات یا 'posts' برای دیدن نوشته‌ها وارد کنید"
+
+msgid "Type your command..."
+msgstr "دستور خود را وارد کنید..."
+
+msgid "© %1$s %2$s. All rights reserved."
+msgstr "© %1$s %2$s. تمامی حقوق محفوظ است."
+
+msgid "No posts"
+msgstr "هیچ نوشته‌ای نیست"
+
+msgid "Categories"
+msgstr "دسته‌بندی‌ها"
+
+msgid "Type \"next\" or \"prev\" to navigate."
+msgstr "برای جابجایی \"next\" یا \"prev\" را وارد کنید."
+
+msgid "Pages:\n%PAGES%\nCategories:\n%CATEGORIES%\nCommands:\nhelp - list pages\nposts - show recent posts"
+msgstr "صفحات:\n%PAGES%\nدسته‌بندی‌ها:\n%CATEGORIES%\nدستورات:\nhelp - فهرست صفحات\nposts - نمایش نوشته‌های اخیر"
+
+msgid "No more posts"
+msgstr "نوشته دیگری نیست"
+
+msgid "No previous posts"
+msgstr "نوشته قبلی وجود ندارد"
+
+msgid "No content"
+msgstr "محتوایی وجود ندارد"
+
+msgid "Command not found: %s"
+msgstr "دستور یافت نشد: %s"
+
+msgid "Search..."
+msgstr "جستجو..."

@@ -1,0 +1,46 @@
+msgid ""
+msgstr ""
+"Language: en_US\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+
+msgid "Search Results for: %s"
+msgstr "Search Results for: %s"
+
+msgid "No posts found"
+msgstr "No posts found"
+
+msgid "Type 'help' for pages or 'posts' to view posts"
+msgstr "Type 'help' for pages or 'posts' to view posts"
+
+msgid "Type your command..."
+msgstr "Type your command..."
+
+msgid "© %1$s %2$s. All rights reserved."
+msgstr "© %1$s %2$s. All rights reserved."
+
+msgid "No posts"
+msgstr "No posts"
+
+msgid "Categories"
+msgstr "Categories"
+
+msgid "Type \"next\" or \"prev\" to navigate."
+msgstr "Type \"next\" or \"prev\" to navigate."
+
+msgid "Pages:\n%PAGES%\nCategories:\n%CATEGORIES%\nCommands:\nhelp - list pages\nposts - show recent posts"
+msgstr "Pages:\n%PAGES%\nCategories:\n%CATEGORIES%\nCommands:\nhelp - list pages\nposts - show recent posts"
+
+msgid "No more posts"
+msgstr "No more posts"
+
+msgid "No previous posts"
+msgstr "No previous posts"
+
+msgid "No content"
+msgstr "No content"
+
+msgid "Command not found: %s"
+msgstr "Command not found: %s"
+
+msgid "Search..."
+msgstr "Search..."

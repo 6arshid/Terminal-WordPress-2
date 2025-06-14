@@ -9,7 +9,7 @@
     </ul>
     <?php the_posts_pagination(); ?>
 <?php else : ?>
-    <p><?php _e('No posts found'); ?></p>
+    <p><?php _e('No posts found', 'terminal'); ?></p>
 <?php endif; ?>
 </div>
 <?php get_footer(); ?>

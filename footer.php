@@ -1,5 +1,5 @@
 <footer>
-    © <?php echo date('Y'); ?> <?php bloginfo('name'); ?>. All rights reserved.
+    <?php printf( esc_html__('© %1$s %2$s. All rights reserved.', 'terminal'), date('Y'), get_bloginfo('name') ); ?>
 </footer>
 
 <script>
