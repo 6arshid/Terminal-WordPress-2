@@ -145,3 +145,9 @@ Version: 1.0
     .farshid_comments li {
         margin-bottom: 0.5rem;
     }
+
+    .farshid_post_link {
+        color: cyan;
+        text-decoration: underline;
+        cursor: pointer;
+    }
