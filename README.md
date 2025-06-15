@@ -13,5 +13,6 @@ up to 10 items. Press the **up** arrow to recall earlier commands and the
 
 The WordPress theme includes an input field with the same "type your command"
 placeholder. Up to 10 commands are stored per browser session using
-`sessionStorage`. Use the ArrowUp and ArrowDown keys to cycle through previous
-commands just like a terminal.
+`sessionStorage`. If `sessionStorage` isn't available, history is kept only for
+that page in memory. Use the ArrowUp and ArrowDown keys to cycle through
+previous commands just like a terminal.
