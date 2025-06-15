@@ -4,7 +4,7 @@
 
 <div class="farshid_terminal_input_row">
     <div class="farshid_terminal_prompt">&gt;</div>
-    <input id="farshid_terminal_input" class="farshid_terminal_input" type="text" placeholder="<?php esc_attr_e('Type your command...', 'terminal'); ?>">
+    <input id="farshid_terminal_input" class="farshid_terminal_input" type="text" placeholder="<?php esc_attr_e('type your command', 'terminal'); ?>">
 </div>
 
 

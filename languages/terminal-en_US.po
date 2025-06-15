@@ -12,8 +12,8 @@ msgstr "No posts found"
 msgid "Type 'help' for pages or 'posts' to view posts"
 msgstr "Type 'help' for pages or 'posts' to view posts"
 
-msgid "Type your command..."
-msgstr "Type your command..."
+msgid "type your command"
+msgstr "type your command"
 
 msgid "© %1$s %2$s. All rights reserved."
 msgstr "© %1$s %2$s. All rights reserved."
