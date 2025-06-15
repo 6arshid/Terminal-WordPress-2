@@ -17,6 +17,10 @@ document.addEventListener('DOMContentLoaded', function () {
     let farshid_current_page = 0;
     const farshid_posts_per_page = 10;
 
+    // Load command history from this session and track current index
+    let commandHistory = JSON.parse(sessionStorage.getItem('terminalHistory') || '[]');
+    let historyIndex = commandHistory.length;
+
     function farshid_addBlock(command, output, isWarning = false) {
         const block = document.createElement('div');
         block.className = 'farshid_terminal_block';
@@ -111,10 +115,36 @@ document.addEventListener('DOMContentLoaded', function () {
             const cmd = farshid_input.value.trim();
             if (cmd) {
                 const output = farshid_handleCommand(cmd);
-                const isWarning = output.startsWith(terminal_i18n.command_not_found.replace('%s', '').trim());
+                const isWarning = output.startsWith(
+                    terminal_i18n.command_not_found.replace('%s', '').trim()
+                );
                 if (output) {
                     farshid_addBlock(cmd, output, isWarning);
                 }
+
+                // Store command in history and cap at 10 items
+                commandHistory.push(cmd);
+                if (commandHistory.length > 10) {
+                    commandHistory.shift();
+                }
+                sessionStorage.setItem('terminalHistory', JSON.stringify(commandHistory));
+                historyIndex = commandHistory.length;
+
+                farshid_input.value = '';
+            }
+        } else if (e.key === 'ArrowUp') {
+            e.preventDefault();
+            if (historyIndex > 0) {
+                historyIndex--;
+                farshid_input.value = commandHistory[historyIndex] || '';
+            }
+        } else if (e.key === 'ArrowDown') {
+            e.preventDefault();
+            if (historyIndex < commandHistory.length - 1) {
+                historyIndex++;
+                farshid_input.value = commandHistory[historyIndex] || '';
+            } else {
+                historyIndex = commandHistory.length;
                 farshid_input.value = '';
             }
         }

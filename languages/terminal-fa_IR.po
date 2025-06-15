@@ -12,8 +12,8 @@ msgstr "هیچ نوشته‌ای یافت نشد"
 msgid "Type 'help' for pages or 'posts' to view posts"
 msgstr "عبارت 'help' را برای فهرست صفحات یا 'posts' برای دیدن نوشته‌ها وارد کنید"
 
-msgid "Type your command..."
-msgstr "دستور خود را وارد کنید..."
+msgid "type your command"
+msgstr "دستور خود را وارد کنید"
 
 msgid "© %1$s %2$s. All rights reserved."
 msgstr "© %1$s %2$s. تمامی حقوق محفوظ است."
