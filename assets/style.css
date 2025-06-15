@@ -26,6 +26,27 @@
     .farshid_logo {
         font-weight: bold;
         font-size: 1.2rem;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
+
+    .farshid_logo img {
+        max-height: 32px;
+        width: auto;
+    }
+
+    .farshid_blogname {
+        line-height: 1;
+    }
+
+    .farshid_hamburger {
+        background: none;
+        border: none;
+        color: var(--terminal-text-color);
+        font-size: 1.5rem;
+        cursor: pointer;
+        margin-right: 0.5rem;
     }
 
     .farshid_header_controls {
@@ -188,4 +209,38 @@
     .light-mode .farshid_comment_form input[type="submit"] {
         color: #000 !important;
         border-color: #000 !important;
+    }
+
+    /* Sidebar styles */
+    .farshid_sidebar {
+        position: fixed;
+        top: 0;
+        left: -250px;
+        width: 250px;
+        height: 100%;
+        background-color: var(--terminal-bg-color);
+        color: var(--terminal-text-color);
+        padding: 1rem;
+        transition: left 0.3s ease;
+        z-index: 1000;
+        overflow-y: auto;
+    }
+
+    .farshid_sidebar.open {
+        left: 0;
+    }
+
+    .farshid_sidebar_menu {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+
+    .farshid_sidebar_menu li {
+        margin-bottom: 0.5rem;
+    }
+
+    .farshid_sidebar_menu a {
+        color: var(--terminal-text-color);
+        text-decoration: none;
     }
