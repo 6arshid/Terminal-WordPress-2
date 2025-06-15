@@ -18,8 +18,22 @@ document.addEventListener('DOMContentLoaded', function () {
     const farshid_posts_per_page = 10;
 
     // Load command history from this session and track current index
-    let commandHistory = JSON.parse(sessionStorage.getItem('terminalHistory') || '[]');
+    let commandHistory = [];
+    try {
+        commandHistory = JSON.parse(sessionStorage.getItem('terminalHistory')) || [];
+    } catch (err) {
+        // sessionStorage might be unavailable (e.g., private mode)
+        commandHistory = [];
+    }
     let historyIndex = commandHistory.length;
+
+    function saveHistory() {
+        try {
+            sessionStorage.setItem('terminalHistory', JSON.stringify(commandHistory));
+        } catch (err) {
+            // Ignore errors when sessionStorage is not accessible
+        }
+    }
 
     function farshid_addBlock(command, output, isWarning = false) {
         const block = document.createElement('div');
@@ -127,7 +141,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 if (commandHistory.length > 10) {
                     commandHistory.shift();
                 }
-                sessionStorage.setItem('terminalHistory', JSON.stringify(commandHistory));
+                saveHistory();
                 historyIndex = commandHistory.length;
 
                 farshid_input.value = '';
